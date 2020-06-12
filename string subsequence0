@@ -1,0 +1,36 @@
+/*
+Example 1:
+
+Input: s = "abc", t = "ahbgdc"
+Output: true
+Example 2:
+
+Input: s = "axc", t = "ahbgdc"
+Output: false
+
+*/
+
+bool isSubsequence(string s, string t) {
+        int s_length = s.length() - 1;
+        int t_length = t.length() - 1;
+        int count = 0;
+        while(s_length >= 0 && t_length >= 0)
+        {
+            if(s[s_length] == t[t_length])
+            {
+                count++;
+                s_length--;
+                t_length--; 
+            }
+            else
+            {
+               t_length--; 
+            }
+        }
+        if(count == s.length())
+        {
+            return true;
+        }
+        return false;
+        
+    }
