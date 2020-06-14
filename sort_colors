@@ -1,0 +1,42 @@
+Given an array with n objects colored red, white or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white and blue.
+
+Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively.
+
+Note: You are not suppose to use the library's sort function for this problem.
+
+Example:
+
+Input: [2,0,2,1,1,0]
+Output: [0,0,1,1,2,2]
+
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        vector<int>freq (10,0);
+        vector<int>output (nums.size(),0);
+        for(int i = 0; i < nums.size(); i++)
+        {
+            freq[nums[i]]++;
+        }
+        cout<<nums.size()<<endl;
+        int max = *max_element(nums.begin(), nums.end()); 
+        for(int i = 1; i <= max; i++)
+        {
+            freq[i] = freq[i]+freq[i-1] ;
+            cout<<freq[i]<<" "<<endl;
+        }
+        
+        for(int i = 0; i < nums.size(); i++)
+        {
+            freq[nums[i]] =  freq[nums[i]]-1 ;
+            output[freq[nums[i]]] = nums[i];
+            cout<<output[freq[nums[i]]]<<" "<<freq[nums[i]]<<" "<<nums[i]<<endl;
+            
+        }
+        for(int i = 0; i < nums.size(); i++)
+        {
+           nums[i] = output[i] ;
+        }
+        
+    }
+};
