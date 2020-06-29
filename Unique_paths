@@ -1,0 +1,66 @@
+//Recursive approach
+
+class Solution {
+    public:
+    
+    int Issafe(int row, int col, int n, int m)
+    {
+        if(row < 0 || col < 0 || row >=n || col >= m )
+        {
+            return false;
+        }
+        return true;
+    }
+    int solve_util(int row, int col,int n,int m)
+    {
+        if( row == n-1 && col == m-1 )
+        {
+            return 1;
+        }
+        if(Issafe(row,col,n,m))
+        {
+            return  solve_util(row+1, col, n, m) + solve_util(row, col+1, n, m);
+            
+        }
+        return 0;
+    }
+    int uniquePaths(int m, int n) {
+        int count = solve_util(0, 0, n, m);
+       
+        return count;
+        
+    }
+};
+
+
+// Dynamic approach
+
+class Solution {
+    public:
+    
+  
+    int uniquePaths(int m, int n) {
+        vector<vector<int>> dp(n,vector<int>(m,0));
+        // 1st row as 1
+        for(int i = 0 ; i < m; i++)
+        {
+          dp[0][i] = 1;    
+        }
+        // 1st column as 1
+        for(int j = 0 ; j < n; j++)
+        {
+            dp[j][0] = 1;  
+        }
+        
+        for(int i = 1 ; i < n; i++)
+        {
+            for(int j = 1 ; j < m; j++)
+            {
+               dp[i][j] = dp[i-1][j] + dp[i][j-1];
+            }
+        }
+       
+        return dp[n-1][m-1];
+        
+    }
+};
